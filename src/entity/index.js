@@ -3,6 +3,7 @@ import {
 } from 'sequelize';
 import dbConfig from '../config/dbConfig.js';
 import RegisterUser from './RegisterUser.js';
+import UserList from './UserList.js';
 
 if (!dbConfig || !dbConfig.sql) {
     console.log("no database configuration availabhle and its not connected");
@@ -21,6 +22,7 @@ var db = {
     )
 }
 db.RegisterUser = RegisterUser(db.sequelize, Sequelize.DataTypes);
+db.UserList = UserList(db.sequelize ,Sequelize.DataTypes);
 db.Query = db.sequelize;
 
 

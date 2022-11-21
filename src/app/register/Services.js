@@ -7,12 +7,17 @@ class RegisterServices {
         const methodName = Methods.ADD_REGISTER_TO_LOGIN;
         console.log(methodName);
         try {
-            let registerdUser = await Entity.RegisterUser.findOne();
+            let registerdUser = await Entity.RegisterUser.findOne({
+                where: {
+                    userName: credential && credential.userName,
+                    email: credential && credential.email
+                }
+            });
             if (!registerdUser) {
-                await Entity.RegisterUser.create({
+                registerdUser = await Entity.RegisterUser.create({
                     email: credential && credential.email,
-                    username: credential && credential.username,
-                    created_at: new Date()
+                    userName: credential && credential.userName,
+                    createdAt: new Date()
                 });
                 return responseHandler.success(methodName, registerdUser, 'SUCCESS')
             } else if (registerdUser) {
@@ -30,31 +35,22 @@ class RegisterServices {
         const methodName = Methods.VERIFY_REGISTERD_USER;
         console.log(methodName);
         try {
-
-            if (credential.username && credential.email) {
-                const verifiedUser = await Entity.RegisterdUser.findOne({
+            if (credential.userName && credential.email) {
+                const verifiedUser = await Entity.RegisterUser.findOne({
                     where: {
-                        username: credential && credential.username,
+                        userName: credential && credential.userName,
                         email: credential && credential.email
                     }
                 })
-
                 if (verifiedUser) {
-                    let user = await Entity.RegisterUser.create({
-                        username: credential && credential.username,
-                        email: credential && credential.email,
-                    })
-                    return responseHandler.success(methodName, user, 'SUCCESS')
+                    return responseHandler.success(methodName, verifiedUser, 'SUCCESS')
                 } else {
                     return responseHandler.invalid(methodName, 'Credential is not valid need to register')
                 }
-
             } else {
                 responseHandler.invalid(methodName, 'Need Users all Credential to login')
             }
-
         } catch (error) {
-            console.log('hit comes')
             return responseHandler.failure(methodName, 'sorry something went wrong')
         }
     }

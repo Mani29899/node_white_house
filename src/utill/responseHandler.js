@@ -1,4 +1,5 @@
 class ResponseObject {
+    hasLog = true;
    success(method, data = '', message = 'success') {
        if (this.hasLog) {
            console.log(`Service | Success | ${method} | `)

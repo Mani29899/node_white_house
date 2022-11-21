@@ -1,14 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { registerRouter } from './app/index.js';
-import path from 'path';
+import { registerRouter ,userListRouter } from './app/index.js';
 import cors from 'cors';
 
-
-
-
 const App = express();
-
 
 App.use(bodyParser.json({
     limit: '50mb',
@@ -22,6 +17,8 @@ App.use(bodyParser.urlencoded({
 App.use(cors());
 
 App.use('/register', registerRouter);
+
+App.use('/userlist',userListRouter);
 
 
 

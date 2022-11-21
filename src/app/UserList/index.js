@@ -1,21 +1,21 @@
 import { mediaType } from "../../config/constants.js";
 import Handler from "./Handler.js";
-
+import Methods from "./Methods.js";
 
 
 export default [
     {
         path: '/',
-        type: mediaType.POST,
+        type: mediaType.GET,
         middleware: [],
-        method: Handler.registerEntryHandler,
+        method: Handler.getUserList,
         options:{}
     },
     {
-        path: '/login',
+        path: '/add',
         type: mediaType.POST,
         middleware: [],
-        method: Handler.loginHandler,
+        method: Handler.addUserList,
         options:{}
     },
     

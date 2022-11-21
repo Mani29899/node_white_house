@@ -1,16 +1,16 @@
 import httpResponse from '../../utill/HttpResponse.js';
 import Methods from './Methods.js';
 import service from './Services.js'
-import {postRequestParser} from '../../utill/index.js'
+import {postRequestParser,getRequestParser} from '../../utill/index.js'
 import ResponseHandler from '../../utill/responseHandler.js';
 
 class RegisterHandler {
-    async registerEntryHandler(req ,res) {
-        const methodName = Methods.ADD_REGISTER_TO_LOGIN;
-        const credential = postRequestParser(req)
+    async getUserList(req ,res) {
+        const methodName = Methods.GET_USER_LIST;
+        const params = getRequestParser(req)
         console.log(methodName)
         try {
-            const response = await service.registerEntryService(credential);
+            const response = await service.getUserListService(params);
             await httpResponse(res ,response)
         } catch (error) {
             console.log('error Hanlder', error)
@@ -18,11 +18,11 @@ class RegisterHandler {
         }
     }
 
-    async loginHandler(req, res) {
-        const methodName = Methods.VERIFY_REGISTERD_USER;
+    async addUserList(req, res) {
+        const methodName = Methods.ADD_USER_LIST;
         try {
-            const credential = postRequestParser(req);
-            const response = await service.verifyLogin(credential);
+            const credential = postRequestParser(req)
+            const response = await service.addUserListService(credential);
             await httpResponse(res ,response)
         } catch (error) {
             console.log(error)

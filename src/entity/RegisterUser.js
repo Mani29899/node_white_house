@@ -16,6 +16,10 @@ export default (sequelize, DataTypes) => {
         userName: {
             field: 'username',
             type: DataTypes.STRING(30)
+        },
+        createdAt: {
+            field:'created_at',
+            type:DataTypes.DATE
         }
     }, {
         tableName: 'register_user',
