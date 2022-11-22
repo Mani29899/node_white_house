@@ -18,7 +18,8 @@ export const paginatedResults = (userList ,params) => {
           limit: limit
         };
       }
-   
-    return results.results = userList.slice(startIndex, endIndex);
+      results.totalLength = userList.length;
+      results.results = userList.slice(startIndex, endIndex);
+      return results;
    
 }
